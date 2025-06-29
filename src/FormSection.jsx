@@ -1,50 +1,59 @@
-import { useState } from "react"
-import AddFieldButton from './AddFieldButton.jsx'
-export default function FormSection(){
-    const [updatedFieldList, setList] = useState([]);
-    // const [field, setField] = useState('');
 
-    
-    function updateFieldList(){
-        const newField = prompt('Enter field name').toString();
-        // setField(newField);
-        setList((updatedFieldList)=>
-            [...updatedFieldList, newField]
-        )
+import AddFieldButton from './AddFieldButton.jsx'
+import RemoveFieldButton from './RemoveFieldButton.jsx'
+export default function FormSection(props){
+
+    function handleOnChange(field, value){
+        const newPersonals = {[field]: value}
+        props.updatePersonals(newPersonals);
+        console.log(props);
     }
 
-    console.log(updatedFieldList);
+
 
     return(
-        <div>
-            <label htmlFor="fullName">Full Name: </label>
-            <input id= 'fullName' placeHolder='Doron Pela' type="text" />
+        <>
+            <div className='form-section'>
+                <div className="input-container">
+                    <label htmlFor="fullName">Full Name: </label>
+                    <input value={props.personals.fullName} onChange={(e) => handleOnChange('fullName', e.target.value)} id='fullName' placeHolder='Doron Pela' type="text" />
+                </div>
 
-            <label htmlFor="fullName">Location: </label>
-            <input id= 'location' placeHolder='PMB CT 3, Cantonments, Accra, Ghana' type="text" />
+                <div className="input-container">
+                    <label htmlFor="fullName">Location: </label>
+                    <input value={props.personals.location} onChange={(e) => handleOnChange('location', e.target.value)} id='location' placeHolder='PMB CT 3, Cantonments, Accra, Ghana' type="text" />
+                </div>
 
-            <label htmlFor="fullName">Email: </label>
-            <input id= 'email' placeHolder='alepNorod@gmail.com' type="text" />
+                <div className="input-container">
+                    <label htmlFor="fullName">Email: </label>
+                    <input value={props.personals.email} onChange={(e) => handleOnChange('email', e.target.value)} id='email' placeHolder='alepNorod@gmail.com' type="email" />
+                </div>
 
-            <label htmlFor="fullName">LinkedIn: </label>
-            <input id= 'linkedIn' placeHolder='doronpela@linkedIn.com' type="text" />
+                <div className="input-container">
+                    <label htmlFor="fullName">LinkedIn: </label>
+                    <input value={props.personals.linkedIn} onChange={(e) => handleOnChange('linkedIn', e.target.value)} id='linkedIn' placeHolder='doronpela@linkedIn.com' type="url" />
+                </div>
 
-            <label htmlFor="fullName">Github: </label>
-            <input id= 'gitHub' type="text" />
+                <div className="input-container">
+                    <label htmlFor="fullName">Github: </label>
+                    <input value={props.personals.gitHub} onChange={(e) => handleOnChange('gitHub', e.target.value)} id='gitHub' type="url" />
+                </div>
 
-            {updatedFieldList? 
-                updatedFieldList.map((field)=>{
-                    return(
-                        <div key={field+'id'}>
-                            <label htmlFor={field}>{field}: </label>
-                            <input id= {field} placeHolder={field} type="text" /> 
-                        </div>
-                    )
-                })
-                : null
-            }
-
-            <AddFieldButton onClick={updateFieldList}/>
-        </div>
+                {props.updatedFieldList?
+                    props.updatedFieldList.map((field) => {
+                        return (
+                            <div key={field + 'id'}>
+                                <div className="input-container">
+                                    <label htmlFor={field}>{field}: </label>
+                                    <input onChange={(e) => handleOnChange(`${field}`, e.target.value)} id={field} placeHolder={field} type="text" />
+                                    <RemoveFieldButton onClick={()=>props.updateFieldList(field)} />
+                                </div>
+                            </div>
+                        );
+                    })
+                    : null}
+            </div>
+            <AddFieldButton onClick={()=>props.updateFieldList()} />
+        </>
     )
 }
