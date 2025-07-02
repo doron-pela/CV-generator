@@ -8,9 +8,7 @@ export default function FormSection(props){
         props.updatePersonals(newPersonals);
         console.log(props);
     }
-
-
-
+    
     return(
         <>
             <div className='form-section'>

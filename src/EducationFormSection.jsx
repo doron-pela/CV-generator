@@ -11,7 +11,6 @@ export default function EducationFormSection({educationArray, setEducationArray,
       }
     
     //Education constituents
-
     function handleOnChange(education, field, value){
         const newEducation = {...education, [field]: value};    //Update constituent object
         const newEducationArray = educationArray.map((edu) => edu === education? newEducation: edu) //Update its state array

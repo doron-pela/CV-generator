@@ -44,6 +44,33 @@ export default function Outputs(props){
 
             </section>
             <br />
+
+            <section className="award-output">
+                {props.awardArray.map((award) => {
+                        return (
+                            <div key={award.id}>
+                                {award.award && award===props.awardArray[0]? (<h1>AWARDS</h1>) : null}
+                                <h4>{award.grantor.toUpperCase()}</h4>
+                                <p>
+                                    {award.award
+                                        ? award.award + ","
+                                        : null}{" "}
+                                    <br />
+                                    {award.grantor
+                                        ? award.grantor + ","
+                                        : null}{" "}
+                                    <br />
+                                    {award.date
+                                        ? award.date + ", "
+                                        : null}
+                                </p>
+                            </div>
+                        );
+                    }
+                )}
+
+            </section>
+            <br />
         </section>
     )
 }
