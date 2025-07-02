@@ -1,4 +1,5 @@
 export default function Outputs(props){
+
     return(
         <section className="outputs">
             <section className="personal-info-output">
@@ -8,25 +9,39 @@ export default function Outputs(props){
                     {props.personals.location? props.personals.location+',':null} <br />
                     {props.personals.email? props.personals.email+',':null} <br />
                     {props.personals.linkedIn? props.personals.linkedIn+', ':null}
+                    {(!props.updatedFieldList[0]? props.personals[props.standardPIKeys[props.standardPIKeys.length-1]] : props.personals[props.standardPIKeys[props.standardPIKeys.length-1]]+', ')}
                     {props.updatedFieldList.map((field)=>{
-                            return (<span key={field+'id'}>{props.personals[field]+', '}</span>)
+                            return (<span key={field+'id'}>{(field === props.updatedFieldList[props.updatedFieldList.length-1]?  props.personals[field]+'': props.personals[field]+', ')}</span>)
                         })}
-                    {props.children}
+                    {/* {props.children} */}
                 </p>
             </section>
             <br />
 
             <section className="education-output">
-                {props.education.institution?<h1>EDUCATION</h1>: null}
-                <h4>{props.education.institution.toUpperCase()}</h4>
-                <p>
-                    {props.education.location? props.education.location+',':null} <br />
-                    {props.education.degree? props.education.degree+',':null} <br />
-                    {props.education.acquisitionDate? props.education.acquisitionDate+', ':null}
-                    {props.updatedEducationFieldList.map((field)=>{
-                            return (<span key={field+'id'}>{props.education[field]+', '}</span>)
-                        })}
-                </p>
+                {props.educationArray.map((education) => {
+                        return (
+                            <div key={education.id}>
+                                {education.institution && education===props.educationArray[0]? (<h1>EDUCATION</h1>) : null}
+                                <h4>{education.institution.toUpperCase()}</h4>
+                                <p>
+                                    {education.location
+                                        ? education.location + ","
+                                        : null}{" "}
+                                    <br />
+                                    {education.degree
+                                        ? education.degree + ","
+                                        : null}{" "}
+                                    <br />
+                                    {education.acquisitionDate
+                                        ? education.acquisitionDate + ", "
+                                        : null}
+                                </p>
+                            </div>
+                        );
+                    }
+                )}
+
             </section>
             <br />
         </section>

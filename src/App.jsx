@@ -1,13 +1,13 @@
-
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import { useState } from 'react'
 import './App.css'
 import Inputs from './Inputs.jsx'
 import Outputs from './Outputs.jsx'
 
 function App() {
-  //Personal Information data
+  /*Personal Information data Section*/
+
+  //PI object data
+  const standardPIKeys = ['fullName', 'location', 'email', 'linkedIn', 'gitHub'];
   const [personals, setPersonals] = useState({
         fullName: '',
         location: '',
@@ -16,16 +16,17 @@ function App() {
         gitHub: ''
   });
 
+  //PI field list data (as array)
   const [updatedPIFieldList, setPIList] = useState([]);
 
   function updatePIFieldList(field){
     let newField = null;
     if(field){
       setPIList((updatedPIFieldList)=>
-        updatedPIFieldList.filter((value)=>field!==value)
+        updatedPIFieldList.filter((value)=>field!==value) //Here, through the filter method, I filter out the unwanted field from the rest of the personal information field list
       )
       setPersonals((personals)=>{
-        const {[field]:_, ...rest} = personals; //Destructuring means - take out by the key. In arrays, means - take out by the position.
+        const {[field]:_, ...rest} = personals; //Here, through destructuring, I filter out the unwanted field from the rest of the personals object. Destructuring means - take out by the key. In arrays, means - take out by the position.
         return rest;
       })
     }else{
@@ -50,63 +51,39 @@ function App() {
     console.log(personals);
   }
 
-  const lastChild = personals.gitHub;
+  const lastChild = personals.gitHub; //Last text node to prevent a comma from being at the end
 
-  //Education data
+  /*Education data*/
 
-  const [education, setEducation] = useState({
-    institution: '',
-    degree: '',
-    location:  '',
-    acquisitionDate: '',
-  });
+  //Education Template Section
+  const standardEducationKeys = ['id', 'institution', 'degree', 'location', 'date'];
+  const standardEducationObject = {
+    id: crypto.randomUUID(),
+    institution: "",
+    degree: "",
+    location: "",
+    date: "",
+  };
 
-  function updateEducation(newEducation){
-    setEducation(
-      {...education, ...newEducation}
-    )
+  //Education State section
+  const [educationArray, setEducationArray] = useState([standardEducationObject]);
+
+  //Education CRUD section
+  function createEducation(){
+    setEducationArray((educationArray) => [...educationArray, standardEducationObject]);
   }
-
-  const [updatedEducationFieldList, setEducationList] = useState([]);
-
-  function updateEducationFieldList(field){
-    let newField = null;
-    if(field){
-      setEducationList((updatedEducationFieldList)=>
-          updatedEducationFieldList.filter((value)=>value!==field)
-      )  
-      setEducation((education)=>{
-        const {[field]: _, ...newEducation} = education; //We can use filter to mutate state arrays, and selective destructuring to mutate state objects
-         //An Object is really just k:v PAIRS. There must always be a key and a value. Therefore, the computed property needs a value and _ literally (a variable name) allowed by linters to represent useless variables we don't need.
-        return newEducation;
-      })
-    }else{
-      newField = prompt('Enter field name').toString().trim();
-      setEducationList((updatedEducationFieldList)=>
-        [...updatedEducationFieldList, newField]
-      )  
-      setEducation(
-        {...education, [newField]:' '}
-      )
-    }
-    
+  function deleteEducation(education){
+    setEducationArray(educationArray.filter((edu)=>edu !== education));
   }
-
-  if(education){
-    console.log("Edu State lifting successful");
-    console.log(education);
-  }
-
-  console.log(updatedPIFieldList);
 
   return (
     <main>
       {/*Props are just object key-value pairs. I can pass them down by spreading in any object. Here, personals object is a state value*/}
       <Inputs updatedFieldList={updatedPIFieldList} updateFieldList={updatePIFieldList} updatePersonals={updatePersonals} personals={personals} 
-              updateEducation={updateEducation} education={education} updatedEducationFieldList={updatedEducationFieldList} updateEducationFieldList={updateEducationFieldList}
+              educationArray={educationArray} setEducationArray={setEducationArray} createEducation={createEducation} deleteEducation={deleteEducation} standardEducationKeys={standardEducationKeys}
       />
-      <Outputs updatedFieldList={updatedPIFieldList} personals={personals}
-                education={education} updatedEducationFieldList={updatedEducationFieldList}
+      <Outputs updatedFieldList={updatedPIFieldList} personals={personals} standardPIKeys={standardPIKeys}
+                educationArray={educationArray} standardEducationKeys={standardEducationKeys}
       >
         {lastChild}
       </Outputs>

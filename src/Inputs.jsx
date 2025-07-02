@@ -10,7 +10,7 @@ export default function Inputs(props){
     return (
         <section className='inputs'>
             <PersonalInformation updatedFieldList={props.updatedFieldList} updateFieldList={props.updateFieldList} updatePersonals={props.updatePersonals} personals={props.personals}/> {/* Equivalent to passing them individually like this => updatePersonals={updatePersonals} fullName={fullName} location={location} email={email} linkedIn={linkedIn} gitHub={gitHub}*/}
-            <Education updateEducation={props.updateEducation} education={props.education} updateFieldList={props.updateEducationFieldList} updatedFieldList={props.updatedEducationFieldList} />
+            <Education educationArray={props.educationArray} setEducationArray={props.setEducationArray} createEducation={props.createEducation} deleteEducation={props.deleteEducation} standardKeys= {props.standardEducationKeys}/>
             {/* <Experience />
             <Projects />    
             <Activities/>

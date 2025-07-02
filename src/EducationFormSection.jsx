@@ -1,53 +1,82 @@
 
 import AddFieldButton from './AddFieldButton.jsx'
 import RemoveFieldButton from './RemoveFieldButton.jsx'
-export default function EducationFormSection(props){
-    
+export default function EducationFormSection({educationArray, setEducationArray, createEducation, deleteEducation, standardKeys}){
 
-    function handleOnChange(field, value){
-        const newEducation = {[field]: value}
-        props.updateEducation(newEducation);
-        console.log(props);
+    //Helper functions
+    function toTitleCase(str) {
+        return str
+          .toLowerCase()
+          .replace(/\b\w+/g, word => word.charAt(0).toUpperCase() + word.slice(1));
+      }
+    
+    //Education constituents
+
+    function handleOnChange(education, field, value){
+        const newEducation = {...education, [field]: value};    //Update constituent object
+        const newEducationArray = educationArray.map((edu) => edu === education? newEducation: edu) //Update its state array
+        setEducationArray(newEducationArray);
     }
 
-    return(
-        <>
-            <div className='form-section'>
-                <div className="input-container">
-                    <label htmlFor="institution">Institution: </label>
-                    <input value={props.education.institution} onChange={(e) => handleOnChange('institution', e.target.value)} id='institution' placeHolder='Ashesi University' type="text" />
-                </div>
+    function removeField(field, education){
+        const {[field]:_, ...newEducation} = education;
+        const newEducationArray = educationArray.map((edu) => edu === education? newEducation: edu) //Update its state array
+        setEducationArray(newEducationArray);
+    }
 
-                <div className="input-container">
-                    <label htmlFor="location">Location: </label>
-                    <input value={props.education.location} onChange={(e) => handleOnChange('location', e.target.value)} id='location' placeHolder='PMB CT 3, Cantonments, Accra, Ghana' type="text" />
-                </div>
+    function addField(education){
+        const newField = prompt("Name your new field").trim();
+        const newEducation = {...education, [newField]:''};     //update constituent object
+        const newEducationArray = educationArray.map((edu) => edu === education? newEducation: edu) //Update its state array
+        setEducationArray(newEducationArray);
+    }
 
-                <div className="input-container">
-                    <label htmlFor="degree">Degree: </label>
-                    <input value={props.education.degree} onChange={(e) => handleOnChange('degree', e.target.value)} id='email' placeHolder='Computer Science' type="text" />
-                </div>
+    return (
+      <>
+        <div className="form-section">
+          <button onClick={createEducation}>Add new Education Entry</button>
 
-                <div className="input-container">
-                    <label htmlFor="acquisitionDate">LinkedIn: </label>
-                    <input value={props.education.acquisitionDate} onChange={(e) => handleOnChange('acquisitionDate', e.target.value)} id='acquisitionDate' placeHolder='Date' type="date" />
-                </div>
+          {educationArray.map((education) => {
+            return (
+              <div className="form-object" key={education.id}>
+                {education!==educationArray[0]? <h3>New Education Entry</h3>: null}
+                
+                <button onClick={() => addField(education)}>
+                        Add new field
+                </button>
 
-                {props.updatedFieldList ?
-                    props.updatedFieldList.map((field) => {
-                        return (
-                            <div key={field + 'id'}>
-                                <div className="input-container">
-                                    <label htmlFor={field}>{field}: </label>
-                                    <input onChange={(e) => handleOnChange(`${field}`, e.target.value)} id={field} placeHolder={field} type="text" />
-                                    <RemoveFieldButton onClick={()=>props.updateFieldList(field)} />
-                                </div>
-                            </div>
-                        );
-                    })
-                    : null}
-            </div>
-            <AddFieldButton onClick={()=>props.updateFieldList()} />
-        </>
-    )
+                {Object.keys(education).map((field) => {
+                  return field === "id" ? null : (
+                    <div key={field}>
+                      <div className="input-container">
+                        <label htmlFor={field}>{toTitleCase(field)}: </label>
+                        <input
+                          value={education[field]}
+                          onChange={(e) =>
+                            handleOnChange(education, field, e.target.value)
+                          }
+                          id={field}
+                          placeHolder={field}
+                          type="text"
+                        />
+                        {(!standardKeys.includes(field))?
+                          <button onClick={() => removeField(field, education)}>
+                            Remove Field
+                          </button>
+                          : null
+                        }
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {education === educationArray[0] ? null : (
+                  <button onClick={()=>deleteEducation(education)}>Delete Education Entry</button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
 }
