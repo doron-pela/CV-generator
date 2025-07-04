@@ -35,13 +35,15 @@ export default function AwardFormSection({awardArray, setAwardArray, createAward
         <div className="form-section">
           <button onClick={createAward}>Add new Award Entry</button>
 
-          {awardArray.map((award) => {
+          {awardArray.map((award, i) => {
             return (
               <div className="form-object" key={award.id}>
-                {award!==awardArray[0]? <h3>New Award Entry</h3>: null}
-                
+                {award !== awardArray[0] ? (
+                  <h3>Award Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(award)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(award).map((field) => {
@@ -58,19 +60,20 @@ export default function AwardFormSection({awardArray, setAwardArray, createAward
                           placeHolder={field}
                           type="text"
                         />
-                        {(!standardKeys.includes(field))?
+                        {!standardKeys.includes(field) ? (
                           <button onClick={() => removeField(field, award)}>
                             Remove Field
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {award === awardArray[0] ? null : (
-                  <button onClick={()=>deleteAward(award)}>Delete Award Entry</button>
+                  <button onClick={() => deleteAward(award)}>
+                    Delete Award Entry
+                  </button>
                 )}
               </div>
             );

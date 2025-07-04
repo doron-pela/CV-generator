@@ -35,13 +35,15 @@ export default function ProjectFormSection({projectArray, setProjectArray, creat
         <div className="form-section">
           <button onClick={createProject}>Add new Project Entry</button>
 
-          {projectArray.map((project) => {
+          {projectArray.map((project, i) => {
             return (
               <div className="form-object" key={project.id}>
-                {project!==projectArray[0]? <h3>New Project Entry</h3>: null}
-                
+                {project !== projectArray[0] ? (
+                  <h3>Project Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(project)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(project).map((field) => {
@@ -58,19 +60,20 @@ export default function ProjectFormSection({projectArray, setProjectArray, creat
                           placeHolder={field}
                           type="text"
                         />
-                        {(!standardKeys.includes(field))?
+                        {!standardKeys.includes(field) ? (
                           <button onClick={() => removeField(field, project)}>
                             Remove Field
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {project === projectArray[0] ? null : (
-                  <button onClick={()=>deleteProject(project)}>Delete Project Entry</button>
+                  <button onClick={() => deleteProject(project)}>
+                    Delete Project Entry
+                  </button>
                 )}
               </div>
             );

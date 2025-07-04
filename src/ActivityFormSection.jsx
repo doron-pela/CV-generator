@@ -33,12 +33,12 @@ export default function ActivityFormSection({activityArray, setActivityArray, cr
     return (
       <>
         <div className="form-section">
-          <button onClick={createActivity}>Add new Activity Entry</button>
+          <button onClick={createActivity}>Add new Activity</button>
 
-          {activityArray.map((activity) => {
+          {activityArray.map((activity, i) => {
             return (
               <div className="form-object" key={activity.id}>
-                {activity!==activityArray[0]? <h3>New Activity Entry</h3>: null}
+                {activity!==activityArray[0]? (<h3>Activity Entry {i+1}</h3>): null}
                 
                 <button onClick={() => addField(activity)}>
                         Add new field

@@ -35,13 +35,15 @@ export default function SkillFormSection({skillArray, setSkillArray, createSkill
         <div className="form-section">
           <button onClick={createSkill}>Add new Skill Entry</button>
 
-          {skillArray.map((skill) => {
+          {skillArray.map((skill, i) => {
             return (
               <div className="form-object" key={skill.id}>
-                {skill!==skillArray[0]? <h3>New Skill Entry</h3>: null}
-                
+                {skill !== skillArray[0] ? (
+                  <h3>Skill Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(skill)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(skill).map((field) => {
@@ -58,19 +60,20 @@ export default function SkillFormSection({skillArray, setSkillArray, createSkill
                           placeHolder={field}
                           type="text"
                         />
-                        {(!standardKeys.includes(field))?
+                        {!standardKeys.includes(field) ? (
                           <button onClick={() => removeField(field, skill)}>
                             Remove Field
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {skill === skillArray[0] ? null : (
-                  <button onClick={()=>deleteSkill(skill)}>Delete Skill Entry</button>
+                  <button onClick={() => deleteSkill(skill)}>
+                    Delete Skill Entry
+                  </button>
                 )}
               </div>
             );

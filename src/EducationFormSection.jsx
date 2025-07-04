@@ -35,13 +35,15 @@ export default function EducationFormSection({educationArray, setEducationArray,
         <div className="form-section">
           <button onClick={createEducation}>Add new Education Entry</button>
 
-          {educationArray.map((education) => {
+          {educationArray.map((education, i) => {
             return (
               <div className="form-object" key={education.id}>
-                {education!==educationArray[0]? <h3>New Education Entry</h3>: null}
-                
+                {education !== educationArray[0] ? (
+                  <h3>Education Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(education)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(education).map((field) => {
@@ -58,19 +60,20 @@ export default function EducationFormSection({educationArray, setEducationArray,
                           placeHolder={field}
                           type="text"
                         />
-                        {(!standardKeys.includes(field))?
+                        {!standardKeys.includes(field) ? (
                           <button onClick={() => removeField(field, education)}>
                             Remove Field
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {education === educationArray[0] ? null : (
-                  <button onClick={()=>deleteEducation(education)}>Delete Education Entry</button>
+                  <button onClick={() => deleteEducation(education)}>
+                    Delete Education Entry
+                  </button>
                 )}
               </div>
             );

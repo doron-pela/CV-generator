@@ -35,13 +35,15 @@ export default function ExperienceFormSection({experienceArray, setExperienceArr
         <div className="form-section">
           <button onClick={createExperience}>Add new Experience Entry</button>
 
-          {experienceArray.map((experience) => {
+          {experienceArray.map((experience, i) => {
             return (
               <div className="form-object" key={experience.id}>
-                {experience!==experienceArray[0]? <h3>New Experience Entry</h3>: null}
-                
+                {experience !== experienceArray[0] ? (
+                  <h3>Experience Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(experience)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(experience).map((field) => {
@@ -58,19 +60,20 @@ export default function ExperienceFormSection({experienceArray, setExperienceArr
                           placeHolder={field}
                           type="text"
                         />
-                        {(!standardKeys.includes(field))?
+                        {!standardKeys.includes(field) ? (
                           <button onClick={() => removeField(field, experience)}>
                             Remove Field
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {experience === experienceArray[0] ? null : (
-                  <button onClick={()=>deleteExperience(experience)}>Delete Experience Entry</button>
+                  <button onClick={() => deleteExperience(experience)}>
+                    Delete Experience Entry
+                  </button>
                 )}
               </div>
             );
