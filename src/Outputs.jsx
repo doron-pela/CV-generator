@@ -121,7 +121,7 @@ export default function Outputs(props){
             </section>
 
             {isClicked ? <References /> : null}
-            <button onClick={()=>setClick(!isClicked)}> {isClicked? "Remove Reference section":"Add Reference section"} </button>
+            {props.personals.email? (<button onClick={()=>setClick(!isClicked)}> {isClicked? "Remove Reference section":"Add Reference section"} </button>) : null}
         </section>
     )
 }
