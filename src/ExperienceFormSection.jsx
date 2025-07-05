@@ -34,7 +34,7 @@ export default function ExperienceFormSection({experienceArray, setExperienceArr
       <>
         <div className="form-section">
           <button onClick={createExperience}>Add new Experience Entry</button>
-
+          
           {experienceArray.map((experience, i) => {
             return (
               <div className="form-object" key={experience.id}>
@@ -51,18 +51,34 @@ export default function ExperienceFormSection({experienceArray, setExperienceArr
                     <div key={field}>
                       <div className="input-container">
                         <label htmlFor={field}>{toTitleCase(field)}: </label>
-                        <input
-                          value={experience[field]}
-                          onChange={(e) =>
-                            handleOnChange(experience, field, e.target.value)
-                          }
-                          id={field}
-                          placeHolder={field}
-                          type="text"
-                        />
+                        {field === standardKeys[standardKeys.length - 1] ||
+                        !standardKeys.includes(field) ? 
+                        (
+                          <textarea
+                            value={experience[field]}
+                            onChange={(e) =>
+                              handleOnChange(experience, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        ) : (
+                          <input
+                            value={experience[field]}
+                            onChange={(e) =>
+                              handleOnChange(experience, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        )}
                         {!standardKeys.includes(field) ? (
-                          <button onClick={() => removeField(field, experience)}>
-                            Remove Field
+                          <button
+                            onClick={() => removeField(field, experience)}
+                          >
+                            X
                           </button>
                         ) : null}
                       </div>

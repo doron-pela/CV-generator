@@ -1,5 +1,5 @@
 export default function RemoveFieldButton({onClick}){
     return(
-        <button onClick={onClick}>Remove Field</button>
+        <button onClick={onClick}>X</button>
     )
 }

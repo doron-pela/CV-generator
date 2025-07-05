@@ -51,18 +51,33 @@ export default function ProjectFormSection({projectArray, setProjectArray, creat
                     <div key={field}>
                       <div className="input-container">
                         <label htmlFor={field}>{toTitleCase(field)}: </label>
-                        <input
-                          value={project[field]}
-                          onChange={(e) =>
-                            handleOnChange(project, field, e.target.value)
-                          }
-                          id={field}
-                          placeHolder={field}
-                          type="text"
-                        />
+                        {field === standardKeys[standardKeys.length - 1] ||
+                        !standardKeys.includes(field) ? (
+                          <textarea
+                            value={project[field]}
+                            onChange={(e) =>
+                              handleOnChange(project, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        ) : (
+                          <input
+                            value={project[field]}
+                            onChange={(e) =>
+                              handleOnChange(project, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        )}
                         {!standardKeys.includes(field) ? (
-                          <button onClick={() => removeField(field, project)}>
-                            Remove Field
+                          <button
+                            onClick={() => removeField(field, project)}
+                          >
+                            X
                           </button>
                         ) : null}
                       </div>

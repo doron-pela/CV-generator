@@ -111,14 +111,14 @@ function App() {
   }
 
   //EXPERIENCE SECTION
-  const standardExperienceKeys = ["id", "establishment", "location", "role", "date", "task1"];
+  const standardExperienceKeys = ["id", "establishment", "location", "role", "date", "task_1"];
   const standardExperienceObject = {
     id: crypto.randomUUID(),
     establishment: "",
     location: "",
     role: "",
     date: "",
-    task1: ""
+    task_1: ""
   };
 
   //Experience state Section
@@ -133,13 +133,13 @@ function App() {
   }
 
   //PROJECTS SECTION
-  const standardProjectKeys = ["id", "title", "role", "date", "task1"];
+  const standardProjectKeys = ["id", "title", "role", "date", "task_1"];
   const standardProjectObject = {
     id: crypto.randomUUID(),
     title: "",
     role: "",
     date: "",
-    task1: ""
+    task_1: ""
   };
 
   //Project state Section
@@ -154,13 +154,13 @@ function App() {
   }
 
   //ACTIVITIES SECTION
-  const standardActivityKeys = ["id", "title", "date", "entry", "task1"];
+  const standardActivityKeys = ["id", "title", "date", "entry", "task_1"];
   const standardActivityObject = {
     id: crypto.randomUUID(),
     title: "",
     date: "",
     entry: "",
-    task1: "",
+    task_1: "",
   };
 
   //Activity state Section

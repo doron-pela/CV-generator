@@ -38,10 +38,12 @@ export default function ActivityFormSection({activityArray, setActivityArray, cr
           {activityArray.map((activity, i) => {
             return (
               <div className="form-object" key={activity.id}>
-                {activity!==activityArray[0]? (<h3>Activity Entry {i+1}</h3>): null}
-                
+                {activity !== activityArray[0] ? (
+                  <h3>Activity Entry {i + 1}</h3>
+                ) : null}
+
                 <button onClick={() => addField(activity)}>
-                        Add new field
+                  Add new field
                 </button>
 
                 {Object.keys(activity).map((field) => {
@@ -49,28 +51,44 @@ export default function ActivityFormSection({activityArray, setActivityArray, cr
                     <div key={field}>
                       <div className="input-container">
                         <label htmlFor={field}>{toTitleCase(field)}: </label>
-                        <input
-                          value={activity[field]}
-                          onChange={(e) =>
-                            handleOnChange(activity, field, e.target.value)
-                          }
-                          id={field}
-                          placeHolder={field}
-                          type="text"
-                        />
-                        {(!standardKeys.includes(field))?
-                          <button onClick={() => removeField(field, activity)}>
-                            Remove Field
+                        {field === standardKeys[standardKeys.length - 1] ||
+                        !standardKeys.includes(field) ? (
+                          <textarea
+                            value={activity[field]}
+                            onChange={(e) =>
+                              handleOnChange(activity, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        ) : (
+                          <input
+                            value={activity[field]}
+                            onChange={(e) =>
+                              handleOnChange(activity, field, e.target.value)
+                            }
+                            id={field}
+                            placeHolder={field}
+                            type="text"
+                          />
+                        )}
+                        {!standardKeys.includes(field) ? (
+                          <button
+                            onClick={() => removeField(field, activity)}
+                          >
+                            X
                           </button>
-                          : null
-                        }
+                        ) : null}
                       </div>
                     </div>
                   );
                 })}
 
                 {activity === activityArray[0] ? null : (
-                  <button onClick={()=>deleteActivity(activity)}>Delete Activity Entry</button>
+                  <button onClick={() => deleteActivity(activity)}>
+                    Delete Activity Entry
+                  </button>
                 )}
               </div>
             );

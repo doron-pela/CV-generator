@@ -1,4 +1,9 @@
+import References from './References.jsx'
+import { useState } from "react";
+
 export default function Outputs(props){
+    
+    const [isClicked, setClick] = useState(false);
 
     return(
         <section className="outputs">
@@ -53,7 +58,7 @@ export default function Outputs(props){
                                 <p className="heading-line-1"><p className="bold">{experience.establishment? experience.establishment+" — ": null}{experience.location? experience.location + "" : null}</p> <p className="bold">{experience.date ? experience.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{experience.role? experience.role + "": null}</p> </p>
                                 <ul>
-                                    {experience.task1? (<li>{experience.task1}</li>): null}
+                                    {experience.task_1? (<li>{experience.task_1}</li>): null}
                                     {Object.keys(experience).filter((key)=>(!props.standardExperienceKeys.includes(key)))
                                         .map((newlyAdded)=><li>{experience[newlyAdded]}</li>)}
                                 </ul>
@@ -71,7 +76,7 @@ export default function Outputs(props){
                                 <p className="heading-line-1"><p className="bold">{project.title? project.title+""||" — ": null}{project.location? project.location + "" : null}</p> <p className="bold">{project.date ? project.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{project.role? project.role + "": null}</p> </p>
                                 <ul>
-                                    {project.task1? (<li>{project.task1}</li>): null}
+                                    {project.task_1? (<li>{project.task_1}</li>): null}
                                     {Object.keys(project).filter((key)=>(!props.standardProjectKeys.includes(key)))
                                         .map((newlyAdded)=><li>{project[newlyAdded]}</li>)}
                                 </ul>
@@ -89,7 +94,7 @@ export default function Outputs(props){
                                 <p className="heading-line-1"><p className="bold">{activity.title? activity.title+""||" — ": null}{activity.location? activity.location + "" : null}</p> <p className="bold">{activity.date ? activity.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{activity.entry? activity.entry + "": null}</p> </p>
                                 <ul>
-                                    {activity.task1? (<li>{activity.task1}</li>): null}
+                                    {activity.task_1? (<li>{activity.task_1}</li>): null}
                                     {Object.keys(activity).filter((key)=>(!props.standardActivityKeys.includes(key)))
                                         .map((newlyAdded)=><li>{activity[newlyAdded]}</li>)}
                                 </ul>
@@ -115,25 +120,8 @@ export default function Outputs(props){
                 )}
             </section>
 
-            <section className="reference-output">
-                {props.referenceArray? props.referenceArray.map((reference) => {
-                        return (
-                            <div className='section' key={reference.id}>
-                                {(reference.title || reference.entry) && reference===props.referenceArray[0]? (<><h3 className="heading">SKILLS</h3><hr /></>) : null}
-                                <ul>
-                                    {(reference.title || reference.entry)? (<li> <p className="bold">{reference.title? reference.title+": " : null}{reference.entry? reference.entry: null}</p></li>): null}
-                                    {Object.keys(reference).filter((key)=>(!props.standardActivityKeys.includes(key)))
-                                        .map((newlyAdded)=><li>{reference[newlyAdded]}</li>)}
-                                </ul>
-                            </div>
-                        );
-                    }
-                )
-                : 
-                (<><h3 className="heading">REFERENCES</h3><hr />
-                    <p className="heading-line-2">Available upon request</p>
-                </>)}
-            </section>
+            {isClicked ? <References /> : null}
+            <button onClick={()=>setClick(!isClicked)}> {isClicked? "Remove Reference section":"Add Reference section"} </button>
         </section>
     )
 }
