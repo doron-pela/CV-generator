@@ -116,7 +116,8 @@ main{
     text-align: left;
     margin: 0 auto;
     margin-left: 11.5pt;
-    font-weight: 300;
+    font-weight: 0;
+    opacity: 0.8;
     color: black;
   }
 
