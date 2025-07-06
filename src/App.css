@@ -20,7 +20,7 @@ main{
   padding: .75in;
   margin-bottom: auto;
   display: flex;
-  height: 100%;
+  height: fit-content;
   max-width: 50%;
   aspect-ratio: 1/1.414;
   flex-direction: column;
@@ -82,12 +82,16 @@ main{
     justify-content: space-between;
   }
 
+  .heading-line-2{
+    /* margin-bottom: -.6rem; */
+  }
+
   p{
     margin: 0;
-    margin-top: 0.06rem;
+    margin-top: 0.08rem;
     color: black;
     font-weight: 300;
-    line-height: 1.15;
+    line-height: 1.2;
   }
 
   p .bold{
@@ -98,12 +102,22 @@ main{
 
   ul{
     padding-left: 0;
+    letter-spacing: 0.02rem;
+    margin-top: 0.3rem;
+    &:has(p){
+      margin: 0;
+      &:not(:nth-child(1)){
+        margin-top: 0.3rem;
+      }
+    }
   }
 
   li{
     text-align: left;
     margin: 0 auto;
     margin-left: 11.5pt;
+    font-weight: 300;
+    color: black;
   }
 
 }
