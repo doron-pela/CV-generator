@@ -19,6 +19,7 @@ main{
   top: 5%;
   padding: .75in;
   margin-bottom: auto;
+  margin-top: -0.4rem;
   display: flex;
   height: fit-content;
   max-width: 50%;
@@ -82,8 +83,10 @@ main{
     justify-content: space-between;
   }
 
-  .heading-line-2{
-    /* margin-bottom: -.6rem; */
+  .unbolded{
+    font-weight: 300;
+    opacity: .9;
+    color: black;
   }
 
   p{
@@ -92,6 +95,10 @@ main{
     color: black;
     font-weight: 300;
     line-height: 1.2;
+  }
+
+  p:has(li){
+    line-height: 1.35em;
   }
 
   p .bold{
@@ -117,7 +124,7 @@ main{
     margin: 0 auto;
     margin-left: 11.5pt;
     font-weight: 0;
-    opacity: 0.8;
+    opacity: 0.9;
     color: black;
   }
 

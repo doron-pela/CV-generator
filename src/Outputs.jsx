@@ -42,7 +42,7 @@ export default function Outputs(props){
                         return (
                             <div className='section' key={award.id}>
                                 {award.award && (award.grantor && award===props.awardArray[0])? (<><h3 className="heading">ACHIEVEMENTS/AWARDS</h3><hr /></>) : null}
-                                <p className="heading-line-1"><p><p className="bold">{award.award? award.award+", ":null}</p> {award.grantor}</p> <p className="bold">{award.date ? award.date: null}</p></p>
+                                <p className="heading-line-1"><p><p className="bold">{award.award? award.award+", ":null}</p> <span className='unbolded'>{award.grantor}</span></p> <p className="bold">{award.date ? award.date: null}</p></p>
                             </div>
                         );
                     }
@@ -55,12 +55,16 @@ export default function Outputs(props){
                         return (
                             <div className='section' key={experience.id}>
                                 {(experience.establishment || experience.role) && experience===props.experienceArray[0]? (<><h3 className="heading">WORK EXPERIENCE</h3><hr /></>) : null}
-                                <p className="heading-line-1"><p className="bold">{experience.establishment? experience.establishment+" — ": null}{experience.location? experience.location + "" : null}</p> <p className="bold">{experience.date ? experience.date + " ": null}</p></p>
+                                <p className="heading-line-1"><p className="bold">{experience.establishment? experience.establishment+" — ": null}<span className="unbolded">{experience.location? experience.location + "" : null}</span></p> <p className="bold">{experience.date ? experience.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{experience.role? experience.role + "": null}</p> </p>
                                 <ul>
-                                    {experience.task_1? (<li>{experience.task_1}</li>): null}
+                                    {experience.task_1? (<p>
+                                        <li>{experience.task_1}</li>
+                                    </p>): null}
                                     {Object.keys(experience).filter((key)=>(!props.standardExperienceKeys.includes(key)))
-                                        .map((newlyAdded)=><li>{experience[newlyAdded]}</li>)}
+                                        .map((newlyAdded)=><p>
+                                            <li>{experience[newlyAdded]}</li>
+                                        </p>)}
                                 </ul>
                             </div>
                         );
@@ -76,9 +80,13 @@ export default function Outputs(props){
                                 <p className="heading-line-1"><p className="bold">{project.title? project.title+""||" — ": null}{project.location? project.location + "" : null}</p> <p className="bold">{project.date ? project.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{project.role? project.role + "": null}</p> </p>
                                 <ul>
-                                    {project.task_1? (<li>{project.task_1}</li>): null}
+                                    {project.task_1? (<p>
+                                        <li>{project.task_1}</li>
+                                    </p>): null}
                                     {Object.keys(project).filter((key)=>(!props.standardProjectKeys.includes(key)))
-                                        .map((newlyAdded)=><li>{project[newlyAdded]}</li>)}
+                                        .map((newlyAdded)=><p>
+                                            <li>{project[newlyAdded]}</li>
+                                        </p>)}
                                 </ul>
                             </div>
                         );
@@ -94,9 +102,13 @@ export default function Outputs(props){
                                 <p className="heading-line-1"><p className="bold">{activity.title? activity.title+""||" — ": null}{activity.location? activity.location + "" : null}</p> <p className="bold">{activity.date ? activity.date + " ": null}</p></p>
                                 <p className="heading-line-2"><p className="bold">{activity.entry? activity.entry + "": null}</p> </p>
                                 <ul>
-                                    {activity.task_1? (<li>{activity.task_1}</li>): null}
+                                    {activity.task_1? (<p>
+                                        <li>{activity.task_1}</li>
+                                    </p>): null}
                                     {Object.keys(activity).filter((key)=>(!props.standardActivityKeys.includes(key)))
-                                        .map((newlyAdded)=><li>{activity[newlyAdded]}</li>)}
+                                        .map((newlyAdded)=><p>
+                                            <li>{activity[newlyAdded]}</li>
+                                        </p>)}
                                 </ul>
                             </div>
                         );
@@ -112,7 +124,9 @@ export default function Outputs(props){
                                 <ul>
                                     {(skill.title || skill.entry)? (<li> <p className="bold">{skill.title? skill.title+": " : null}{skill.entry? skill.entry: null}</p></li>): null}
                                     {Object.keys(skill).filter((key)=>(!props.standardActivityKeys.includes(key)))
-                                        .map((newlyAdded)=><li>{skill[newlyAdded]}</li>)}
+                                        .map((newlyAdded)=><p>
+                                            <li>{skill[newlyAdded]}</li>
+                                        </p>)}
                                 </ul>
                             </div>
                         );
