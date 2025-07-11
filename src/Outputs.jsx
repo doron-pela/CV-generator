@@ -1,12 +1,22 @@
 import References from './References.jsx'
-import { useState } from "react";
+import { useState } from "react"
+import dummyData from './dummyData.jsx'
 
 export default function Outputs(props){
     
     const [isClicked, setClick] = useState(false);
 
+    const [isDefault, setDefault] = useState(false);
+
+    if(isDefault){
+      const demo = dummyData();
+      props = { ...props, ...demo };
+    }
+
     return(
         <section className="outputs">
+            <button onClick={()=>setDefault(!isDefault)}> {isDefault? "Remove default data":"Add default data"} </button>
+
             <section className="personal-info-output">
                 <div className="section">
                     {props.personals.fullName? <button className='print-button' onClick={()=>window.print()}>Print</button>: null}
